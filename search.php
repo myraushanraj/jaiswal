@@ -1,3 +1,22 @@
+<?php
+    include 'dbconnect.php';
+    include 'server.php';
+
+	if (!isset($_SESSION['cust_id'])) {
+		$_SESSION['msg'] = "You must log in first";
+		header('location: login.php');
+    }
+    else{ //Continue to current page
+        header( 'Content-Type: text/html; charset=utf-8' );
+    }
+
+	if (isset($_GET['logout'])) {
+		session_destroy();
+		unset($_SESSION['cust_name']);
+		header("location: login.php");
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,89 +61,95 @@
   </div>
 </nav>
 <!-- Slider start here -->
-<div class="container bus-list">
-    <h3 class="color"> Kanpur To Delhi</h3>
-  
-<table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Bus Name</th>
-            <th>Departure</th>
-            <th>Duration</th>
-            <th>Arrival</th>
-            <th>Price</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Kalpana And Kamla Travels <br><span class="bus-type">AC/Sleeper</span> </td>
-            <td>02:30 PM</td>
-            <td>5 Hours</td>
-            <td>07:30 PM</td>
-            <td>1299/-</td>
-            <td><button class="c-btn">Book Now</button></td>
-          </tr>
-          <tr>
-                <td>Kalpana And Kamla Travels <br><span class="bus-type">AC/Sleeper</span> </td>
-                <td>02:30 PM</td>
-                <td>5 Hours</td>
-                <td>07:30 PM</td>
-                <td>1299/-</td>
-                <td><button class="c-btn">Book Now</button></td>
-              </tr>
-              <tr>
-                    <td>Kalpana And Kamla Travels <br><span class="bus-type">AC/Sleeper</span> </td>
-                    <td>02:30 PM</td>
-                    <td>5 Hours</td>
-                    <td>07:30 PM</td>
-                    <td>1299/-</td>
-                    <td><button class="c-btn">Book Now</button></td>
-                  </tr>
-                  <tr>
-                        <td>Kalpana And Kamla Travels <br><span class="bus-type">AC/Sleeper</span> </td>
-                        <td>02:30 PM</td>
-                        <td>5 Hours</td>
-                        <td>07:30 PM</td>
-                        <td>1299/-</td>
-                        <td><button class="c-btn">Book Now</button></td>
-                      </tr>
-                      <tr>
-                            <td>Kalpana And Kamla Travels <br><span class="bus-type">AC/Sleeper</span> </td>
-                            <td>02:30 PM</td>
-                            <td>5 Hours</td>
-                            <td>07:30 PM</td>
-                            <td>1299/-</td>
-                            <td><button class="c-btn">Book Now</button></td>
-                          </tr>
-                          <tr>
-                                <td>Kalpana And Kamla Travels <br><span class="bus-type">AC/Sleeper</span> </td>
-                                <td>02:30 PM</td>
-                                <td>5 Hours</td>
-                                <td>07:30 PM</td>
-                                <td>1299/-</td>
-                                <td><button class="c-btn">Book Now</button></td>
-                              </tr>
-                              <tr>
-                                    <td>Kalpana And Kamla Travels <br><span class="bus-type">AC/Sleeper</span> </td>
-                                    <td>02:30 PM</td>
-                                    <td>5 Hours</td>
-                                    <td>07:30 PM</td>
-                                    <td>1299/-</td>
-                                    <td><button class="c-btn">Book Now</button></td>
-                                  </tr>
-                                  <tr>
-                                        <td>Kalpana And Kamla Travels <br><span class="bus-type">AC/Sleeper</span> </td>
-                                        <td>02:30 PM</td>
-                                        <td>5 Hours</td>
-                                        <td>07:30 PM</td>
-                                        <td>1299/-</td>
-                                        <td><button class="c-btn">Book Now</button></td>
-                                      </tr>
-         
-        </tbody>
-      </table>
+<div id="bus-input-details" class="container">
+    
+  <div class="col-md-8">
+  <form id="search_buses_form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="has-validation-callback">
+
+      <div class="col-md-6">
+          <div class="input-wrap">
+              <label>From</label>
+            
+              <select class="select" name="journeyFrom" id="journeyFrom"  data-validation="required">
+                		<option value="">Starting City</option>
+
+                        <?php
+                            $sql = "select DISTINCT departure_station from `route_detail`";
+                            $run = mysqli_query($db,$sql);
+
+                            if(!$run)
+                            	die("Unable to run query".mysqli_error());
+
+                            $rows = mysqli_num_rows($run);
+
+                            if($rows>0){
+                            	while($data = mysqli_fetch_object($run)){
+                                    echo '<option value="' . $data -> departure_station . '">' . $data -> departure_station . '</option>';
+                            	}
+                            }
+                            else{
+                            		echo "No data found <br/>";
+                            	}
+                        ?>
+
+                	</select>
+          </div>
+      </div>   
+      <div class="col-md-6">
+          <div class="input-wrap">
+              <label>To</label>
+              
+              <select class="select" name="journeyFrom" id="journeyFrom"  data-validation="required">
+                		<option value="">Starting City</option>
+
+                        <?php
+                            $sql = "select DISTINCT departure_station from `route_detail`";
+                            $run = mysqli_query($db,$sql);
+
+                            if(!$run)
+                            	die("Unable to run query".mysqli_error());
+
+                            $rows = mysqli_num_rows($run);
+
+                            if($rows>0){
+                            	while($data = mysqli_fetch_object($run)){
+                                    echo '<option value="' . $data -> departure_station . '">' . $data -> departure_station . '</option>';
+                            	}
+                            }
+                            else{
+                            		echo "No data found <br/>";
+                            	}
+                        ?>
+
+                	</select>
+          </div>
+      </div>   
+      <br>
+      <div class="col-md-6">
+          <div class="input-wrap">
+              <label>Journey date</label>
+              <input type="date">
+          </div>
+      </div>   
+      <div class="col-md-6">
+          <div class="input-wrap" type="date">
+              <label>Return date</label>
+              <input type="date">
+          </div>
+      </div>  
+      <div class="col-md-12">
+          <div class="button-wrap">
+            <p class="text-center"><input type="submit" valute="Search"></p>
+          </div>
+      </div>  
+                            </form>
     </div>
+  <div class="col-md-4 text-left">
+     <p class="fff"> Welcome to Jaiswal holidays. Book bus tickets online, check bus schedules and get the best bus booking deals right here, right now. Your memorable bus journey is just a click away.
+     <h3 class="fff">Save up to 30% on online Bus Ticket!</h3>
+    </div>
+ </div> 
+
 
 <!-- Slider end here -->
 
