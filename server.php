@@ -139,7 +139,7 @@
 			$_SESSION['book_date'] = $book_date; 
 
 			
-			$route_sql = "SELECT * from `route_detail`";
+			$route_sql = "SELECT * from `route_detail` ";
 			$route_run = mysqli_query($db,$route_sql);
 		
 			if(!$route_run)
@@ -162,7 +162,7 @@
 					}
 				}
 			}
-			header("location: availablebus.php");
+			header("location: bus-list.php");
 		}
 	}
 

@@ -5,7 +5,7 @@
 
 	if (!isset($_SESSION['cust_id']))
     {
-        header("location: ../index.php");
+       // header("location: ../index.php");
     }
     else{ //Continue to current page
         header( 'Content-Type: text/html; charset=utf-8' );

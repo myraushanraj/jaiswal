@@ -1,22 +1,7 @@
 <?php
     include 'dbconnect.php';
     include 'server.php';
-
-	if (!isset($_SESSION['cust_id'])) {
-		$_SESSION['msg'] = "You must log in first";
-	//	header('location: login.php');
-    }
-    else{ //Continue to current page
-        header( 'Content-Type: text/html; charset=utf-8' );
-    }
-
-	if (isset($_GET['logout'])) {
-		session_destroy();
-		unset($_SESSION['cust_name']);
-		header("location: login.php");
-    }
-
-?>
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,95 +46,133 @@
   </div>
 </nav>
 <!-- Slider start here -->
-<div id="bus-input-details" class="container">
-    
-  <div class="col-md-8">
-  <form id="search_buses_form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="has-validation-callback">
+<form action="booking.php" method="post">
+<div class="container bus-list">
+<div id="bodyhead">
+                <h1>Available Buses</h1>
+                <h2>Journey Date - <?php   echo ($dateOfJourney = $_SESSION['dateOfJourney']); ?></h2>
+            </div>
+     <h3 class="color"> <?php echo $_SESSION['journeyFrom']; ?> To <?php echo $_SESSION['journeyTo']; ?> </h3> 
+    <?php
+    function time_taken($a,$b){
+    $datetime1 = new DateTime('22-11-2019 '.$a);
+$datetime2 = new DateTime('23-11-2019 '.$b);
+$interval = $datetime1->diff($datetime2);
+return $interval->format('%hh %im');
+    }
+?>
+<table class="table table-hover bus-list-wrap">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Duration</th>
+           
+            <th>Price</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          
+         
+          <?php
 
-      <div class="col-md-6">
-          <div class="input-wrap">
-              <label>From</label>
+$journeyFrom = $_SESSION['journeyFrom'];
+$journeyTo = $_SESSION['journeyTo']; 
+$dateOfJourney = $_SESSION['dateOfJourney'];
+
+if (!isset($_SESSION['selected_route_id']))
+{
+    $selected_route_id = "";
+}else{
+    $selected_route_id = $_SESSION['selected_route_id'];
+
+}
+
+$sql = "SELECT * from `time_table` WHERE departure_station = '$journeyFrom' AND arrival_station = '$journeyTo'";
+$run = mysqli_query($db,$sql);
+
+if(!$run)
+    die("Unable to run query".mysqli_error($db));
+
+$rows = mysqli_num_rows($run);
+if($rows>0){
+    while($data = mysqli_fetch_assoc($run)){
+
+        $departure_station = $data['departure_station'];
+        $arrival_station = $data['arrival_station'];
+
+
+        if(($journeyFrom == $departure_station) && ($journeyTo == $arrival_station)){
+          echo "<td> Jaiswal Holiday</td>";
+          
+
+            if(empty($data['departure_time'])){
+                $departure_time = "--:-- AM";
+            }else{
+                $departure_time = date('h:i A', strtotime($data['departure_time']));
+            }
+            echo "<td>".$departure_time."</td>";
+
+            if(empty($data['arrival_time'])){
+                $arrival_time = "--:-- PM";
+            }else{
+                $arrival_time = date('h:i A', strtotime($data['arrival_time']));
+            }
+            echo "<td>".$arrival_time."</td>"; 
+            echo "<td>".time_taken($departure_time,$arrival_time)."</td>"; 
+            echo "<td>".$data['rent']."</td>";
             
-              <select class="select" name="journeyFrom" id="journeyFrom"  data-validation="required">
-                		<option value="">Starting City</option>
+            // rent Session
+            $_SESSION['route_rent'] = $data['rent'];
 
-                        <?php
-                            $sql = "select DISTINCT departure_station from `route_detail`";
-                            $run = mysqli_query($db,$sql);
+                $query2 = "SELECT
+                    `journey_date`,
+                    COUNT(*) AS COUNT
+                    FROM
+                        book_detail
+                    WHERE
+                        `journey_date` = '$dateOfJourney' 
+                    AND 
+                        `route_id` = '$selected_route_id'
+                    GROUP BY 
+                        journey_date 
+                    HAVING
+                        COUNT(*) < 32";
+                $result2 = mysqli_query($db,$query2) or die('Error: '.mysqli_error ($db));
 
-                            if(!$run)
-                            	die("Unable to run query".mysqli_error());
-
-                            $rows = mysqli_num_rows($run);
-
-                            if($rows>0){
-                            	while($data = mysqli_fetch_object($run)){
-                                    echo '<option value="' . $data -> departure_station . '">' . $data -> departure_station . '</option>';
-                            	}
-                            }
-                            else{
-                            		echo "No data found <br/>";
-                            	}
-                        ?>
-
-                	</select>
-          </div>
-      </div>   
-      <div class="col-md-6">
-          <div class="input-wrap">
-              <label>To</label>
-              
-              <select class="select" name="journeyTo" id="journeyTo"  data-validation="required">
-                        <option value="">End City</option>
-
-                            <?php
-                                $sql = "select DISTINCT arrival_station from `route_detail`";
-                                $run = mysqli_query($db,$sql);
-
-                                if(!$run)
-                                	die("Unable to run query".mysqli_error());
-
-                                $rows = mysqli_num_rows($run);
-
-                                if($rows>0){
-                                	while($data = mysqli_fetch_object($run)){
-                                                echo '<option value="' . $data -> arrival_station . '">' . $data -> arrival_station . '</option>';
-                                	}
-                                }
-                                else{
-                                		echo "No data found <br/>";
-                                	}
-                            ?>
-
-                    </select>
-          </div>
-      </div>   
-      <br>
-      <div class="col-md-6">
-          <div class="input-wrap">
-              <label>Journey date</label>
-              <input type="date"  name="dateOfJourney" id="dateOfJourney">
-          </div>
-      </div>   
-      <div class="col-md-6">
-          <div class="input-wrap" type="date">
-             
-          </div>
-      </div>  
-      <div class="col-md-12">
-          <div class="button-wrap">
-          <input class="submit-bus" type="submit" name="searchBuses" id="searchBuses" value="Search Buses">
-          </div>
-      </div>  
-                            </form>
+                $no_rows = mysqli_num_rows($result2);
+                //echo $no_rows;
+                if($no_rows>0){
+                    while($row = mysqli_fetch_assoc($result2)) {
+                        $count = $row['COUNT'];
+                        if ($count < "32") {
+                            $availableNo = 32 - $count;
+                            echo "<td>".$availableNo." Seat</td>";
+                        } else {
+                            echo "<td> Not Available </td>";
+                        }
+                    }
+                }else{
+                    echo "<td> 32 </td>";
+                }
+            echo "<td><input type='submit' class='custom-button' name='bookNow' value='Book Now'></td></tr>";
+        }
+        else if(($journeyFrom != $departure_station) && ($journeyTo != $arrival_station)) {
+            echo ("No data available in table.");
+        }
+    }
+}
+else{
+        echo "<td colspan='6'> No data found </td> <br/>";
+    }
+?>
+         
+        </tbody>
+      </table>
     </div>
-  <div class="col-md-4 text-left">
-     <p class="fff"> Welcome to Jaiswal holidays. Book bus tickets online, check bus schedules and get the best bus booking deals right here, right now. Your memorable bus journey is just a click away.
-     <h3 class="fff">Save up to 30% on online Bus Ticket!</h3>
-    </div>
- </div> 
-
-
+    </form>
 <!-- Slider end here -->
 
 <!-- Container (Services Section) -->
@@ -200,12 +223,7 @@
 <div id="myCarousel2" class="carousel slide text-center container testi" data-ride="carousel">
  
 
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel2" data-slide-to="1"></li>
-      <li data-target="#myCarousel2" data-slide-to="2"></li>
-    </ol>
+   
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">

@@ -207,11 +207,20 @@ font-size: 13px;
   border: none;
   padding: 6px 15px;
   border-radius: 4px;
+  color:#fff;
 }
 #bus-input-details{
 padding-top:100px;
 background: #ff5722;
   padding-bottom: 84px;
+}
+.bus-list-wrap{
+  color:#000;
+  margin: 71px 0px;
+  box-shadow: 1px 1px 16px 0px grey;
+}
+.bus-list-wrap td,.bus-list-wrap th{
+  padding:20px 20px!important;
 }
 
 @media screen and (min-width: 768px){
@@ -313,7 +322,7 @@ outline:none;
 
 color:#000;
 }
-.button-wrap a{
+.submit-bus{
 background: blue;
 padding: 12px 79px;
 font-size: 16px;

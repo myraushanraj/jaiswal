@@ -17,6 +17,7 @@
         $busNo = $_POST['busNo'];
         $busType = $_POST['busType'];
         $totalSeat = $_POST['totalSeat'];
+        $bus_name = $_POST['bus_name'];
 
         if (empty($busNo)) { 
             $error = true;
@@ -31,7 +32,7 @@
             array_push($errors, "totalSeat is required"); 
         }
         if(!$error){
-            $query = "INSERT INTO `bus_detail`(bus_no, bus_type, total_seat) VALUES('". $busNo. "', '". $busType. "', '". $totalSeat. "' )";
+            $query = "INSERT INTO `bus_detail`(bus_no, bus_type, total_seat, total_seat) VALUES('". $busNo. "', '". $busType. "', '". $totalSeat. "', '". $bus_name. "' )";
             if(mysqli_query($con, $query)) {
                 $successmsg = "Successfully Registered!";
             }
@@ -116,7 +117,10 @@
                     if($_SESSION['user_type'] == 'admin'){
             ?>
 						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="bus_type">
-                            
+                        <div class="input-group">
+                                <label for="busNo" class="required">Bus Name</label>
+                                <input type="text" name="bus_name" placeholder="Enter Bus Name" required="required"/>
+                            </div>
                             <div class="input-group">
                                 <label for="busNo" class="required">Bus No</label>
                                 <input type="text" name="busNo" placeholder="BA2KA2894" required="required"/>
@@ -153,6 +157,7 @@
 
                             <thead style="text-align: left;">
                                 <tr>
+                                    <th>Bus Name</th>
                                     <th>Bus No.</th>
                                     <th>Bus Type</th>
                                     <th>Total Seat</th>
@@ -177,6 +182,7 @@
                             $rows = mysqli_num_rows($run);
                             if($rows>0){
                                 while($data = mysqli_fetch_object($run)){
+                                    echo "<td>".$data -> bus_name."</td>";
                                     echo "<td>".$data -> bus_no."</td>";
                                     echo "<td>".$data -> bus_type."</td>";
                                     echo "<td>".$data -> total_seat."</td>";
