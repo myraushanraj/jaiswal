@@ -13,25 +13,105 @@
 
 ?>
 <!DOCTYPE html>
-<html dir="">
-
+<html lang="en">
 <head>
-    <title>Bus Reservation System</title>
-    <meta charset="utf-8">
-    <meta name="fragment" content="!">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link href="assets/css/index.css" type="text/css" rel="stylesheet" />
+  <!-- Theme Made By www.w3schools.com -->
+  <title>Jaiswal holidays</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link href="assets/css/index.css" type="text/css" rel="stylesheet" />
     <link href="assets/css/seat.css" type="text/css" rel="stylesheet" />
+    <style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 22px;
+  height: 18px;
+  background:#000;
+}
 
+input { 
+  opacity: 0!important;
+  width: 0!important;
+  height: 0!important;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border:1px solid gray;
+}
+
+
+input:checked + .slider {
+  background-color: green;
+}
+
+table td{
+    padding: 1px 4px;
+}
+.sleeper td .switch{
+width:47px;
+}
+#holder {
+    height: auto;
+    width: auto;
+    background-color: #F5F5F5;
+    border: 1px solid #A4A4A4;
+    padding: 0px 10px;
+    position: relative;
+    margin: 0px 0;
+}
+.driver{
+    position:absolute;
+    top: 2px
+}
+.extra-sheet .switch{
+    float:right;
+}
+
+
+</style>
 </head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-<body>
-    <div id="pagewrapper">
-        <div id="topbg"></div>
-        <div id="systemName">
-            <h1>Bus Booking</h1>
-        </div>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a  href="#myPage" class="navbar-brand">Jaiswal holidays</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#about">HOME</a></li>
+        
+        <li><a href="#portfolio">OUR STORY</a></li>
+        <li><a href="#pricing">BLOG</a></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+        <li><a href="#contact">LOGIN</a></li>
+       
+      </ul>
+    </div>
+  </div>
+</nav>
         <div id="header">
             <div id="mainmenu">
                 <header>
@@ -107,101 +187,183 @@
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <div id="area">
                     <p>Please Select Seat</p>
-                    <div id="holder">
-            
-                        <ul id="place">
-                            <?php
-                                $dateOfJourney = $_SESSION['dateOfJourney'];
-                                $selected_route_id = $_SESSION['selected_route_id'];
+ <div id="holder">
+  <table>
+<tr class="sleeper">
+<td rowspan=5 style="width:50px">
+<label class=" driver">
+ <img src="images/driver.png" width=35px style="    transform: rotate(271deg);" />
+ <div style="    transform: rotate(270deg);
+    position: absolute;
+    bottom: -85px;">LOWER</div>
+</label>
 
-                                
-                                $query = "SELECT choice FROM `book_detail` WHERE `journey_date`='$dateOfJourney' AND `route_id`='$selected_route_id'";
-                                $result = mysqli_query($db,$query);
-                                
-                                if(!$result)
-                                    die("Unable to run query".mysqli_error());
+</td>
+<?php for($i=0;$i<6;$i++){ ?>
 
-                                $no_rows = mysqli_num_rows($result);
-                                if($no_rows>0){
-                                    while($row = mysqli_fetch_assoc($result)) {
-                                            $explode_choice = explode(',', $row['choice']);
-                                            // print_r($explode_choice);
-                                            // echo "<br>";
-                                    }
+<td colspan=2>
+<label class="switch">
+  <input type="checkbox" onclick="book_s('sleeper-<?php echo $i+1 ?>')">
+  <span class="slider"></span>
+</label>
 
-                                    echo "<br>";
-                                    
-                                    //Query for booked seats
-                                    $k = array();
-                                        
-                                    while($row= mysqli_fetch_array($result))
-                                        {
-                                            $k[] = $row['choice'];
-                                            print_r($k);
-                                            echo "<br>";
-                                        }
-                                        
-                                        $ais = array("A","B","E","C","D");
-                                        $aisle = array("E1","E2","E3","E4","E5","E6","E7","E8","E9");
+</td>
 
+<?php } ?>
+</tr>
+<tr class="sleeper">
+<?php for($i=0;$i<6;$i++){ ?>
 
-                                        echo "<table>";
-                                        foreach($ais as $i){
-                                            echo "<tr>";
-                                            for($r=1;$r<=8;$r++){
-                                                $seatno = $i.$r;
-                                                if(in_array($seatno,$k)){
-                                                    $seat = '<input type="checkbox" disabled="disabled" value="'.$seatno.'" name="chooseSeat[]" style="width:18px; height:18px;  position: relative;" onclick="getSum();" >';
-                                                }elseif(!in_array($seatno,$aisle)){
-                                                    $seat = '<input type="checkbox" value="'.$seatno.'" name="chooseSeat[]" style="width:16px; height:18px; position: relative; " >';
-                                                }else{
-                                                    $seat = "&nbsp;";
-                                                }
-                                                if(in_array($seatno,$explode_choice)){
-                                                    $seat = '<input type="checkbox" disabled="disabled" checked value="'.$seatno.'" name="chooseSeat[]" style="width:18px; height:18px; position: relative;" >';
-                                                }
-                                                echo "<td>$seat</td>";
-                                            }
-                                            echo "</tr>";
-                                        }
-                                        echo "</table>";
-                                }else{
-                                    $k = array();
-                                        
-                                    while($row= mysqli_fetch_array($result))
-                                        {
-                                            $k[] = $row['choice'];
-                                            print_r($k);
-                                            echo "<br>";
-                                        }
-                                        
-                                        $ais = array("A","B","E","C","D");
-                                        $aisle = array("E1","E2","E3","E4","E5","E6","E7","E8","E9");
+<td colspan=2>
+<label class="switch">
+  <input type="checkbox">
+  <span class="slider"></span>
+</label>
 
+</td>
 
-                                        echo "<table>";
-                                        foreach($ais as $i){
-                                            echo "<tr>";
-                                            for($r=1;$r<=8;$r++){
-                                                $seatno = $i.$r;
-                                                if(in_array($seatno,$k)){
-                                                    $seat = '<input type="checkbox" disabled="disabled" value="'.$seatno.'" name="chooseSeat[]" style="width:18px; height:18px;  position: relative;" onclick="getSum();" >';
-                                                }elseif(!in_array($seatno,$aisle)){
-                                                    $seat = '<input type="checkbox" value="'.$seatno.'" name="chooseSeat[]" style="width:16px; height:18px; position: relative; " >';
-                                                }else{
-                                                    $seat = "&nbsp;";
-                                                }
-                                                echo "<td>$seat</td>";
-                                            }
-                                            echo "</tr>";
-                                        }
-                                        echo "</table>";
-                                }
-                                    
+<?php } ?>
+</tr>
+<tr class="extra-sheet">
+<td colspan="12">
+<label class="switch">
+  <input type="checkbox">
+  <span class="slider"></span>
+</label></td>
+</tr>
+<tr>
 
-                            ?>
+<?php for($i=0;$i<6;$i++){ ?>
+    
+
+<td>
+<label class="switch">
+  <input type="checkbox">
+  <span class="slider"></span>
+</label>
+
+</td>
+<td>
+<label class="switch">
+  <input type="checkbox">
+  <span class="slider"></span>
+</label>
+
+</td>
+
+<?php } ?>
+</tr>
+
+<tr>
+<?php for($i=0;$i<6;$i++){ ?>
+    
+
+<td>
+<label class="switch">
+  <input type="checkbox">
+  <span class="slider"></span>
+</label>
+
+</td>
+<td>
+<label class="switch">
+  <input type="checkbox">
+  <span class="slider"></span>
+</label>
+
+</td>
+
+<?php } ?>
+</tr>
+</table>
+
+                                   
                         </ul>
                     </div>
+
+
+                    <!-- Upper start -->
+                    <br>
+                    <div id="holder">
+  <table>
+<tr class="sleeper">
+<td rowspan=5 style="width:50px">
+<label class=" driver">
+ <div style="    transform: rotate(270deg);
+    position: absolute;
+    bottom: -85px;">UPPER</div>
+</label>
+
+</td>
+<?php for($i=0;$i<6;$i++){ ?>
+
+<td colspan=2>
+<label class="switch">
+  <input type="checkbox">
+  <span class="slider"></span>
+</label>
+
+</td>
+
+<?php } ?>
+</tr>
+<tr class="sleeper">
+<?php for($i=0;$i<6;$i++){ ?>
+
+<td colspan=2>
+<label class="switch">
+  <input type="checkbox">
+  <span class="slider"></span>
+</label>
+
+</td>
+
+<?php } ?>
+</tr>
+<tr class="extra-sheet">
+<td colspan="12">
+&nbsp;
+</td>
+</tr>
+
+
+<tr class="sleeper">
+
+<?php for($i=0;$i<6;$i++){ ?>
+    
+
+<td colspan=2>
+<label class="switch">
+  <input type="checkbox">
+  <span class="slider"></span>
+</label>
+
+</td>
+
+
+<?php } ?>
+</tr>
+
+<tr class="sleeper">
+<?php for($i=0;$i<6;$i++){ ?>
+    
+    <td colspan=2>
+<label class="switch">
+  <input type="checkbox">
+  <span class="slider"></span>
+</label>
+
+</td>
+
+
+<?php } ?>
+</tr>
+</table>
+
+                                   
+                        </ul>
+                    </div>
+                    <!-- upper end -->
                     <div class="submit-container" style="display: inline-block; margin-top: 10px;">
                         <input style="margin:0;" type="submit" name="insert_seat" id="insert" value="Insert">
                     </div>
@@ -220,6 +382,11 @@
             Copyright © 2018.<br> All Rights Reserved.
         </div>
     </div>
+    <script>
+    function book_s(ticket){
+        alert(ticket)
+    }
+    </script>
 </body>
 
 </html>
