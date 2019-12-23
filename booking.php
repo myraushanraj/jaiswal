@@ -72,7 +72,7 @@ width:47px;
     width: auto;
     background-color: #F5F5F5;
     border: 1px solid #A4A4A4;
-    padding: 0px 10px;
+    padding: 7px 10px;
     position: relative;
     margin: 0px 0;
 }
@@ -133,60 +133,29 @@ width:47px;
         <div></div>
 
         <div id="content">
-            <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
-            <pre>    
-</pre>
+           
 
             <div id="page_conten">
-                <h2 style="font-size:1.2em;"> Choose seats by clicking the corresponding seat in the layout below:</h2>
-                <div class="busdataarea">
-                    <div class="buswrapper">
-                        <label>
-                            <b>Booking Date : </b>
-                        </label>
-                        <label>
-                            <?php
+            <p class="bus-title">From-  <?php
+                                echo ($journeyFrom = $_SESSION['journeyFrom']);
+                            ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                            To-
+                             <?php
+                                echo ($journeyFrom = $_SESSION['journeyTo']);
+                            ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                        Booking Date :    
+                        <?php
                                 echo ($dateOfJourney = $_SESSION['dateOfJourney']);
                             ?>
-                        </label>
-                    </div>
-                    <!-- <div class="buswrapper">
-                        <label>
-                            <b>Bus Number : </b>
-                        </label>
-                        <label>
-                            <?php
-                                echo ('...');
-                            ?>
-                        </label>
-                    </div> -->
-                    <div class="buswrapper">
-                        <label>
-                            <b>From : </b>
-                        </label>
-                        <label>
-                            <?php
-                                echo ($journeyFrom = $_SESSION['journeyFrom']);
-                            ?>
-                        </label>
-                    </div>
-                    <div class="buswrapper">
-                        <label>
-                            <b>To : </b>
-                        </label>
-                        <label>
-                            <?php
-                                echo ($journeyTo = $_SESSION['journeyTo']);
-                            ?>
-                        </label>
-                    </div>
-                </div>
+               </p>
+                <h2 style="font-size:1.2em;"> Choose seats by clicking the corresponding seat in the layout below:</h2>
+                
             </div>
-
+<div class="col-md-6">
 
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <div id="area">
-                    <p>Please Select Seat</p>
+                 
  <div id="holder">
   <table>
 <tr class="sleeper">
@@ -199,11 +168,14 @@ width:47px;
 </label>
 
 </td>
-<?php for($i=0;$i<6;$i++){ ?>
+
+<?php $no=0; for($i=0;$i<6;$i++){ 
+  $no=$no+2;
+  ?>
 
 <td colspan=2>
 <label class="switch">
-  <input type="checkbox" onclick="book_s('sleeper-<?php echo $i+1 ?>')">
+  <input type="checkbox" onclick="book_s('L-S-<?php echo $no ?>','sleeper',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -212,11 +184,12 @@ width:47px;
 <?php } ?>
 </tr>
 <tr class="sleeper">
-<?php for($i=0;$i<6;$i++){ ?>
+<?php $no=-1; for($i=0;$i<6;$i++){ 
+  $no=$no+2; ?>
 
 <td colspan=2>
 <label class="switch">
-  <input type="checkbox">
+  <input type="checkbox"  onclick="book_s('L-S-<?php echo $no ?>','sleeper',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -227,25 +200,27 @@ width:47px;
 <tr class="extra-sheet">
 <td colspan="12">
 <label class="switch">
-  <input type="checkbox">
+  <input type="checkbox" onclick="book_s('chair-25','chair',this.checked)">
   <span class="slider"></span>
 </label></td>
 </tr>
 <tr>
 
-<?php for($i=0;$i<6;$i++){ ?>
+<?php $no=0; for($i=0;$i<6;$i++){ 
+  $no=$no+2; ?>
     
 
 <td>
 <label class="switch">
-  <input type="checkbox">
+  <input type="checkbox" onclick="book_s('chair-<?php echo $no ?>','chair',this.checked)">
   <span class="slider"></span>
 </label>
 
 </td>
+<?php $no=$no+2; ?>
 <td>
 <label class="switch">
-  <input type="checkbox">
+  <input type="checkbox" onclick="book_s('chair-<?php echo $no ?>','chair',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -255,19 +230,21 @@ width:47px;
 </tr>
 
 <tr>
-<?php for($i=0;$i<6;$i++){ ?>
+<?php $no=-1; for($i=0;$i<6;$i++){ 
+  $no=$no+2; ?>
     
 
 <td>
 <label class="switch">
-  <input type="checkbox">
+  <input type="checkbox" onclick="book_s('chair-<?php echo $no ?>','chair',this.checked)">
   <span class="slider"></span>
 </label>
 
 </td>
+<?php $no=$no+2; ?>
 <td>
 <label class="switch">
-  <input type="checkbox">
+  <input type="checkbox" onclick="book_s('chair-<?php echo $no ?>','chair',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -295,11 +272,13 @@ width:47px;
 </label>
 
 </td>
-<?php for($i=0;$i<6;$i++){ ?>
+<?php $no=12; for($i=0;$i<6;$i++){ 
+  $no=$no+2;
+  ?>
 
 <td colspan=2>
 <label class="switch">
-  <input type="checkbox">
+  <input type="checkbox" onclick="book_s('U-S-<?php echo $no ?>','sleeper',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -308,11 +287,13 @@ width:47px;
 <?php } ?>
 </tr>
 <tr class="sleeper">
-<?php for($i=0;$i<6;$i++){ ?>
+<?php $no=11; for($i=0;$i<6;$i++){ 
+  $no=$no+2;
+  ?>
 
 <td colspan=2>
 <label class="switch">
-  <input type="checkbox">
+  <input type="checkbox" onclick="book_s('U-S-<?php echo $no ?>','sleeper',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -329,12 +310,13 @@ width:47px;
 
 <tr class="sleeper">
 
-<?php for($i=0;$i<6;$i++){ ?>
-    
+<?php $no=0; for($i=0;$i<6;$i++){ 
+  $no=$no+2;
+  ?>
 
 <td colspan=2>
 <label class="switch">
-  <input type="checkbox">
+  <input type="checkbox" onclick="book_s('U-S-<?php echo $no ?>','sleeper',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -345,11 +327,13 @@ width:47px;
 </tr>
 
 <tr class="sleeper">
-<?php for($i=0;$i<6;$i++){ ?>
-    
-    <td colspan=2>
+<?php $no=-1; for($i=0;$i<6;$i++){ 
+  $no=$no+2;
+  ?>
+
+<td colspan=2>
 <label class="switch">
-  <input type="checkbox">
+  <input type="checkbox" onclick="book_s('U-S-<?php echo $no ?>','sleeper',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -364,15 +348,28 @@ width:47px;
                         </ul>
                     </div>
                     <!-- upper end -->
-                    <div class="submit-container" style="display: inline-block; margin-top: 10px;">
-                        <input style="margin:0;" type="submit" name="insert_seat" id="insert" value="Insert">
-                    </div>
+                 
 
-                    <div style="margin-top: 10px;"> 
-                        <span class="text-danger"><?php if (isset($errormsg)) { echo $errormsg; } ?></span>
-                    </div>
+                  
                 </div>
             </form>
+            </div>
+            <div class="col-md-6">
+            <div class="book-details-wrap">
+            <label>Boarding Point</label>
+            <p>New Delhi (Near Anand vihar Metro Gate no 2)</p>
+
+            <label>Dropping Point</label>
+            <p>New Delhi (Near Anand vihar Metro Gate no 2)</p>
+            <hr>
+            <p>Seat(s) No- <span class="pull-right" id="seat_no"></span></p>
+            <p>Base Fare- <span class="pull-right" id="base_fare">0</span></p>
+            <p>Discount- <span class="pull-right" id="discount"></span></p>
+            <hr>
+            <p>Total- <span class="pull-right" id="total">0</span></p>
+            <p><button class="book-btn">CONTINUE BOOKING</button></p>
+            </div>
+            </div>
         </div>
 
         <!--#contentwrapper-->
@@ -383,8 +380,51 @@ width:47px;
         </div>
     </div>
     <script>
-    function book_s(ticket){
-        alert(ticket)
+    var sleeper_rate=1000;
+    var chair_rate=600;
+    var total=0;
+    var seat = [];
+    function book_s(ticket,ticket_type,action){
+      if(action){
+        seat.push(ticket);
+      if(ticket_type=="sleeper")
+      total=total+sleeper_rate
+      else
+      total=total+chair_rate
+      }
+      else{
+        
+        var index = seat.indexOf(ticket);
+if (index !== -1) seat.splice(index, 1);
+
+
+
+
+      if(ticket_type=="sleeper")
+      total=total-sleeper_rate
+      else
+      total=total-chair_rate
+      }
+
+     
+
+
+      
+      document.getElementById("seat_no").innerHTML=seat;
+     
+     
+    
+      document.getElementById("base_fare").innerHTML=total;
+      document.getElementById("total").innerHTML=total-50;
+      document.getElementById("discount").innerHTML=-50;
+
+      if(total==0){
+        document.getElementById("base_fare").innerHTML=0;
+        document.getElementById("discount").innerHTML=0;
+        document.getElementById("total").innerHTML=0;
+      }
+      
+
     }
     </script>
 </body>
