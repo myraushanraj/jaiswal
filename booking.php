@@ -367,17 +367,23 @@ width:47px;
             <p>Discount- <span class="pull-right" id="discount"></span></p>
             <hr>
             <p>Total- <span class="pull-right" id="total">0</span></p>
-            <p><button class="book-btn">CONTINUE BOOKING</button></p>
+            <p><button class="book-btn" onclick="continue_click()">CONTINUE BOOKING</button></p>
             </div>
             </div>
         </div>
 
         <!--#contentwrapper-->
         <div class="clear"></div>
+        <div id="pass-details-wrap">
+        <form class="pass-details-wrap" >
+          <p style="text-align:right"><span onclick='document.getElementById("pass-details-wrap").style.display = "none";' style="cursor:pointer"> X</span></p>
+            <div class="row" id="all-form">
+            </div>
+            <p style="text-align:center"><button class="book-btn" style="width:300px">CONTINUE BOOKING</button></p>
 
-        <div id="footer">
-            Copyright © 2018.<br> All Rights Reserved.
-        </div>
+        </form>
+        <div>
+       
     </div>
     <script>
     var sleeper_rate=1000;
@@ -426,7 +432,54 @@ if (index !== -1) seat.splice(index, 1);
       
 
     }
+
+    function continue_click(){
+     
+      if(seat.length>0){
+        document.getElementById("pass-details-wrap").style.display = "block";
+
+
+        var html='';
+
+        for(var i=0;i<seat.length;i++){
+html+=`
+<div class="col-xs-12 col-md-12">
+        <h3>Passenger Information</h3>
+        <label>Passenger ${i+1}</label>
+        </div>
+        <div class="col-xs-6 col-md-6">
+             <input type="text" placeholder="Name">
+        </div>
+        <div class="col-xs-3 col-md-3">
+            <input type="number" name="name" placeholder="Age"> 
+        </div>
+        <div class="col-xs-3 col-md-3">
+            <select>
+            <option value='Male'>Male</option>
+            <option value='Female'>Female</option>
+            </select>
+        </div>`;
+        }
+        html+=`
+<div class="col-xs-12 col-md-12">
+      
+        <label>Contact Information</label>
+        </div>
+        <div class="col-xs-6 col-md-6">
+             <input type="email" placeholder="Email Address">
+        </div>
+        <div class="col-xs-6 col-md-6">
+            <input type="number" name="name" placeholder="Mobile Number"> 
+        </div>
+        `;
+        document.getElementById("all-form").innerHTML=html;
+      }
+      else{
+        alert("Please select your seat!")
+      }
+    }
     </script>
+
 </body>
 
 </html>

@@ -44,6 +44,37 @@ body {
     border-radius: 25px;
     margin: 33px 0px 0px 0px; 
   }
+  .pass-details-wrap{
+      background: #fff;
+      padding:30px;
+      width:60%;
+      margin: 63px auto;
+  }
+  .pass-details-wrap label{
+    font-weight: 400;
+    margin: 0px;
+    font-size: 13px;
+    width:100%;
+  }
+  #pass-details-wrap{
+    background: #00000063;
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    padding-top: 10px;
+    display: none;
+  }
+  .pass-details-wrap input,.pass-details-wrap select,.pass-details-wrap input:focus{
+    opacity: 1!important;
+    width: 100%!important;
+    height: 30px!important;
+    margin-top:0px!important;
+    border:none;
+    border-bottom:1px solid gray;
+    padding-left:2px;
+    outline: none;
+  }
+  
   hr{
     margin: 7px 0px;
   }
@@ -163,19 +194,9 @@ form label {
     font-size: 15px;
 }
 
-form input,
-form select {
-    font-family: Times New Roman;
-    font-size: 15px;
-}
 
-form input,
-form select {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    font-family: Times New Roman;
-    font-size: 15px;
-}
+
+
 
 #bodyhead {
     margin-left: 10px;
