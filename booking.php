@@ -57,10 +57,13 @@ input {
 }
 
 
+
+.booked-seat + .slider {
+  background-color: gray!important;
+}
 input:checked + .slider {
   background-color: green;
 }
-
 table td{
     padding: 1px 4px;
 }
@@ -175,7 +178,7 @@ width:47px;
 
 <td colspan=2>
 <label class="switch">
-  <input type="checkbox" onclick="book_s('L-S-<?php echo $no ?>','sleeper',this.checked)">
+  <input type="checkbox" id="L-S-<?php echo $no ?>" onclick="book_s('L-S-<?php echo $no ?>','sleeper',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -189,7 +192,7 @@ width:47px;
 
 <td colspan=2>
 <label class="switch">
-  <input type="checkbox"  onclick="book_s('L-S-<?php echo $no ?>','sleeper',this.checked)">
+  <input type="checkbox" id="L-S-<?php echo $no ?>"  onclick="book_s('L-S-<?php echo $no ?>','sleeper',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -200,7 +203,7 @@ width:47px;
 <tr class="extra-sheet">
 <td colspan="12">
 <label class="switch">
-  <input type="checkbox" onclick="book_s('chair-25','chair',this.checked)">
+  <input type="checkbox" id="chair-25" onclick="book_s('chair-25','chair',this.checked)">
   <span class="slider"></span>
 </label></td>
 </tr>
@@ -212,7 +215,7 @@ width:47px;
 
 <td>
 <label class="switch">
-  <input type="checkbox" onclick="book_s('chair-<?php echo $no ?>','chair',this.checked)">
+  <input type="checkbox" id="chair-<?php echo $no ?>" onclick="book_s('chair-<?php echo $no ?>','chair',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -220,7 +223,7 @@ width:47px;
 <?php $no=$no+2; ?>
 <td>
 <label class="switch">
-  <input type="checkbox" onclick="book_s('chair-<?php echo $no ?>','chair',this.checked)">
+  <input type="checkbox" id="chair-<?php echo $no ?>" onclick="book_s('chair-<?php echo $no ?>','chair',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -236,7 +239,7 @@ width:47px;
 
 <td>
 <label class="switch">
-  <input type="checkbox" onclick="book_s('chair-<?php echo $no ?>','chair',this.checked)">
+  <input type="checkbox" id="chair-<?php echo $no ?>" onclick="book_s('chair-<?php echo $no ?>','chair',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -244,7 +247,7 @@ width:47px;
 <?php $no=$no+2; ?>
 <td>
 <label class="switch">
-  <input type="checkbox" onclick="book_s('chair-<?php echo $no ?>','chair',this.checked)">
+  <input type="checkbox" id="chair-<?php echo $no ?>"  onclick="book_s('chair-<?php echo $no ?>','chair',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -278,7 +281,7 @@ width:47px;
 
 <td colspan=2>
 <label class="switch">
-  <input type="checkbox" onclick="book_s('U-S-<?php echo $no ?>','sleeper',this.checked)">
+  <input type="checkbox" id="U-S-<?php echo $no ?>" onclick="book_s('U-S-<?php echo $no ?>','sleeper',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -293,7 +296,7 @@ width:47px;
 
 <td colspan=2>
 <label class="switch">
-  <input type="checkbox" onclick="book_s('U-S-<?php echo $no ?>','sleeper',this.checked)">
+  <input type="checkbox" id="U-S-<?php echo $no ?>" onclick="book_s('U-S-<?php echo $no ?>','sleeper',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -316,7 +319,7 @@ width:47px;
 
 <td colspan=2>
 <label class="switch">
-  <input type="checkbox" onclick="book_s('U-S-<?php echo $no ?>','sleeper',this.checked)">
+  <input type="checkbox" id="U-S-<?php echo $no ?>" onclick="book_s('U-S-<?php echo $no ?>','sleeper',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -333,7 +336,7 @@ width:47px;
 
 <td colspan=2>
 <label class="switch">
-  <input type="checkbox" onclick="book_s('U-S-<?php echo $no ?>','sleeper',this.checked)">
+  <input type="checkbox" id="U-S-<?php echo $no ?>" onclick="book_s('U-S-<?php echo $no ?>','sleeper',this.checked)">
   <span class="slider"></span>
 </label>
 
@@ -375,7 +378,7 @@ width:47px;
         <!--#contentwrapper-->
         <div class="clear"></div>
         <div id="pass-details-wrap">
-        <form class="pass-details-wrap" >
+        <form class="pass-details-wrap" id="checkout-form" action="paytm/pgRedirect.php" method="post">
           <p style="text-align:right"><span onclick='document.getElementById("pass-details-wrap").style.display = "none";' style="cursor:pointer"> X</span></p>
             <div class="row" id="all-form">
             </div>
@@ -386,8 +389,8 @@ width:47px;
        
     </div>
     <script>
-    var sleeper_rate=1000;
-    var chair_rate=600;
+    var sleeper_rate=<?php echo $_SESSION['rent']; ?>*2;
+    var chair_rate=<?php echo $_SESSION['rent']; ?>;
     var total=0;
     var seat = [];
     function book_s(ticket,ticket_type,action){
@@ -440,21 +443,22 @@ if (index !== -1) seat.splice(index, 1);
 
 
         var html='';
-
+html+=" <h3>Passenger Information</h3>";
         for(var i=0;i<seat.length;i++){
 html+=`
 <div class="col-xs-12 col-md-12">
-        <h3>Passenger Information</h3>
+       
         <label>Passenger ${i+1}</label>
         </div>
         <div class="col-xs-6 col-md-6">
-             <input type="text" placeholder="Name">
+             <input type="text" name="pass_name${i+1}" placeholder="Name" required>
+             <input type="hidden" name="pass_seat${i+1}" placeholder="Name" value="${seat[i]}">
         </div>
         <div class="col-xs-3 col-md-3">
-            <input type="number" name="name" placeholder="Age"> 
+            <input type="number" name="pass_age${i+1}" placeholder="Age" required> 
         </div>
         <div class="col-xs-3 col-md-3">
-            <select>
+            <select name="pass_gender${i+1}" required>
             <option value='Male'>Male</option>
             <option value='Female'>Female</option>
             </select>
@@ -466,10 +470,12 @@ html+=`
         <label>Contact Information</label>
         </div>
         <div class="col-xs-6 col-md-6">
-             <input type="email" placeholder="Email Address">
+             <input type="email" placeholder="Email Address" name="pass_email" required>
         </div>
         <div class="col-xs-6 col-md-6">
-            <input type="number" name="name" placeholder="Mobile Number"> 
+            <input type="number" name="pass_contact" placeholder="Mobile Number" required> 
+            <input type="hiden" name="pass_count" placeholder="Mobile Number" value="${seat.length}"> 
+            <input type="number" name="pay_amount" placeholder="Mobile Number" value="${total-50}"> 
         </div>
         `;
         document.getElementById("all-form").innerHTML=html;
@@ -479,7 +485,37 @@ html+=`
       }
     }
     </script>
+<?php
 
+//get seat status
+$route_id=$_SESSION['selected_route_id'];
+
+$query = "SELECT * FROM book_detail where route_id='$route_id' AND journey_date='$dateOfJourney'";
+			$result = mysqli_query($db, $query);
+      
+		
+      while($row = mysqli_fetch_assoc($result)){
+        //echo "id: " . $row["seat_no"];
+        ?>
+<script>
+document.getElementById("<?php echo $row["choice"];?>").disabled = true;
+document.getElementById("<?php echo $row["choice"];?>").checked = true;
+
+var element = document.getElementById("<?php echo $row["choice"];?>");
+   element.classList.add("booked-seat");
+
+document.getElementById("<?php echo $row["choice"];?>").style.backgroundColor = "lightblue";
+
+
+</script>
+        <?php
+      }
+
+      
+       // print_r($row);
+      
+
+?>
 </body>
 
 </html>

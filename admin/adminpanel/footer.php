@@ -2,6 +2,6 @@
 <footer class="footer">
     <div class="container-fluid">
         <p class="copyright pull-right"> ©
-            <?php echo date("Y");?> OBTRS</a>, made with <span class="heart">❤</span> by Team </p>
+            <?php echo date("Y");?>  <span class="heart">❤</span> by Jaiswal Holidays </p>
     </div>
 </footer>

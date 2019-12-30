@@ -4,7 +4,7 @@
 
 	if (!isset($_SESSION['cust_id'])) {
 		$_SESSION['msg'] = "You must log in first";
-		header('location: login.php');
+	//	header('location: login.php');
     }
     else{ //Continue to current page
         header( 'Content-Type: text/html; charset=utf-8' );
@@ -17,85 +17,61 @@
     }
 
 ?>
-
-
 <!DOCTYPE html>
-<html lang="en" class="js csstransitions">
-
+<html lang="en">
 <head>
-    <title>Bus Ticket Reservation System</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="assets/css/normalize.css" />
-    <link href="assets/css/index.css" type="text/css" rel="stylesheet" />
-
-    <!--link for javascript date&time-->
-    <script type="text/javascript" src="assets/js/date&time/jQuery.ptTimeSelect.js"></script>
-    <script type="text/javascript" src="assets/js/date&time/jquery-ui-1.8.22.custom.min.js"></script>
-    <script type="text/javascript" src="assets/js/date&time/jquery.ui.timepicker.js"></script>
-    <script type="text/javascript" src="assets/js/date&time/customDateTime.js"></script>
-
-    <!--link for stylesheet for date&time-->
-    <link rel="stylesheet" href="assets/css/date&time/jquery.ptTimeSelect.css" />
-    <link rel="stylesheet" href="assets/css/date&time/jquery.ui.timepicker.css" />
+  <!-- Theme Made By www.w3schools.com -->
+  <title>Jaiswal holidays</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  
+  </style>
 </head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-<body>
-    <div id="pagewrapper">
-        <div id="topbg"></div>
-        <div id="systemName">
-            <h1>Bus Booking</h1>
-        </div>
-        <div id="header">
-            <div id="mainmenu">
-                <header>
-                    <ul>
-                        <li><a href="index.php">Home</a></li>
-                        <li><a href="timetable.php">Time Table</a></li>
-                        <?php  if (!isset($_SESSION['cust_name'])) {?>
-                            <li><a href="login.php">Login</a></li>
-                            <li><a href="register.php">Register</a></li>
-                        <?php }?>
-                        <?php  if (isset($_SESSION['cust_name'])) {?>
-                            <li> <a href="index.php?logout='1'">Logout</a> </li>
-                        <?php }?>
-                    </ul>
-                </header>
-            </div>
-        </div>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a  href="#myPage" class="navbar-brand">Jaiswal holidays</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#about">HOME</a></li>
+        
+        <li><a href="#portfolio">OUR STORY</a></li>
+        <li><a href="#pricing">BLOG</a></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+        <li><a href="#contact">LOGIN</a></li>
+       
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Slider start here -->
+<div id="bus-input-details" class="container">
+    
+  <div class="col-md-8">
+  <form id="search_buses_form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="has-validation-callback">
 
-        <div class="content">
-            <!-- notification message -->
-            <?php if (isset($_SESSION['success'])) {?>
-                <div class="error success" >
-                    <h3 style="color: green;">
-                        <?php 
-                            echo $_SESSION['success']; 
-                            unset($_SESSION['success']);
-                        ?>
-                    </h3>
-                </div>
-            <?php } ?>
-
-        </div>
-
-        <div id="content">
-            <h1>Welcome 
-                <?php
-                    if (isset($_SESSION['cust_id']))
-                    {
-                        echo $_SESSION['cust_name'];
-                    }
-                ?>
-            </h1>
-
-            <div class="abc">
-            <?php include('errors.php'); ?>
-                <form id="search_buses_form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="has-validation-callback">
-
-                	<label for="journeyFrom" class="required">Journey From</label>
-                	<select class="select" name="journeyFrom" id="journeyFrom" style="width:150px;" data-validation="required">
-                		<option value="">Select From</option>
+      <div class="col-md-6">
+          <div class="input-wrap">
+              <label>From</label>
+            
+              <select class="select" name="journeyFrom" id="journeyFrom"  data-validation="required">
+                		<option value="">Starting City</option>
 
                         <?php
                             $sql = "select DISTINCT departure_station from `route_detail`";
@@ -117,10 +93,14 @@
                         ?>
 
                 	</select>
-                    <br>
-                    <label for="journeyTo" class="required">Journey To</label>
-                    <select class="select" name="journeyTo" id="journeyTo" style="width:150px;" data-validation="required">
-                        <option value="">Select To</option>
+          </div>
+      </div>   
+      <div class="col-md-6">
+          <div class="input-wrap">
+              <label>To</label>
+              
+              <select class="select" name="journeyTo" id="journeyTo"  data-validation="required">
+                        <option value="">End City</option>
 
                             <?php
                                 $sql = "select DISTINCT arrival_station from `route_detail`";
@@ -142,37 +122,326 @@
                             ?>
 
                     </select>
-                    <br>
-                    <label for="dateofJourney" class="required">Date</label>
-                    <input style="width:147px;" name="dateOfJourney" id="dateOfJourney" type="date" class="datepicker_bus_date hasDatepicker" data-validation="required" value="<?php echo date("Y-m-d"); ?>" autocomplete="off">
-                    <br />
-                    <label></label>
-                    <input style="margin:5px 25px 0;" type="submit" name="searchBuses" id="searchBuses" value="Search Buses">
+          </div>
+      </div>   
+      <br>
+      <div class="col-md-6">
+          <div class="input-wrap">
+              <label>Journey date</label>
+              <input type="date"  name="dateOfJourney" id="dateOfJourney">
+          </div>
+      </div>   
+      <div class="col-md-6">
+          <div class="input-wrap" type="date">
+             
+          </div>
+      </div>  
+      <div class="col-md-12">
+          <div class="button-wrap">
+          <input class="submit-bus" type="submit" name="searchBuses" id="searchBuses" value="Search Buses">
+          </div>
+      </div>  
+                            </form>
+    </div>
+  <div class="col-md-4 text-left">
+     <p class="fff"> Welcome to Jaiswal holidays. Book bus tickets online, check bus schedules and get the best bus booking deals right here, right now. Your memorable bus journey is just a click away.
+     <h3 class="fff">Save up to 30% on online Bus Ticket!</h3>
+    </div>
+ </div> 
 
-                </form>
+
+<!-- Slider end here -->
+
+<!-- Container (Services Section) -->
+<div id="" class="container-fluid text-center">
+     
+        <h4 class="section-title"><span>Online Booking Offer</span></h4>
+        <br>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="box-wrap">
+                <span class=""> <img src="https://s1.rdbuz.com/images/MobileOffers/amazon/offertile..png" class="img-responsive"/></span>
+                <p class="product-title">Use code CONTROL to get Up to 12% cashback (Max Rs 175) into redbus wallet on bus tickets depending on your route of travel and bus operator.</p>
+              
+                
             </div>
+          </div>
+          <div class="col-sm-4">
+              <div class="box-wrap">
+                  <span class=""> <img src="https://s1.rdbuz.com/images/MobileOffers/amazon/offertile..png" class="img-responsive"/></span>
+                  <p class="product-title">Use code CONTROL to get Up to 12% cashback (Max Rs 175) into redbus wallet on bus tickets depending on your route of travel and bus operator.</p>
+                
+                  
+              </div>
+          </div>
+          <div class="col-sm-4">
+              <div class="box-wrap">
+                  <span class=""> <img src="https://s1.rdbuz.com/images/MobileOffers/amazon/offertile..png" class="img-responsive"/></span>
+                  <p class="product-title">Use code CONTROL to get Up to 12% cashback (Max Rs 175) into redbus wallet on bus tickets depending on your route of travel and bus operator.</p>
+                
+                  
+              </div>
+          </div>
+        </div>
+        <br><br>
+        
+      </div>
+      
+      <!-- Service section end here -->
+     
+<br>
+      <!-- Banner end here -->
 
+      <!-- Testimonial start here -->
+      <div class="container-fluid">
+          <h4 class="section-title"><span>Testimonials</span></h4>
 
+      </div>
+<div id="myCarousel2" class="carousel slide text-center container testi" data-ride="carousel">
+ 
+
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel2" data-slide-to="1"></li>
+      <li data-target="#myCarousel2" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
+        <div class="col-md-4 text-center">
+          <img src="images/girl1.jpg" alt="slider1" class="user-image" />
+          <p>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+          </p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque debitis praesentium culpa dicta, quia assumenda consectetur quibusdam cupiditate libero. Minus ullam quam blanditiis explicabo. Corrupti sit fuga rem neque.</p>
 
         </div>
-
-
-
-        <!--#contentwrapper-->
-        <div class="clear"></div>
-
-        <footer id="footer" class="footer">
-            <div class="container-fluid">
-                <p class="copyright pull-right">Copyright ©
-                    <script>
-                        document.write(new Date().getFullYear())
-                    </script><a href="#"> OBTRS</a>. 
-                    <br> All Rights Reserved.
-                </p>
+        <div class="col-md-4 text-center">
+            <img src="images/girl1.jpg" alt="slider1" class="user-image" />
+            <p>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            </p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque debitis praesentium culpa dicta, quia assumenda consectetur quibusdam cupiditate libero. Minus ullam quam blanditiis explicabo. Corrupti sit fuga rem neque.</p>
+  
+          </div>
+          <div class="col-md-4 text-center">
+              <img src="images/girl1.jpg" alt="slider1" class="user-image" />
+              <p>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              </p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque debitis praesentium culpa dicta, quia assumenda consectetur quibusdam cupiditate libero. Minus ullam quam blanditiis explicabo. Corrupti sit fuga rem neque.</p>
+    
             </div>
-        </footer>
-        
-    </div>
-</body>
+      </div>
 
+
+
+      <div class="item">
+          <div class="col-md-4 text-center">
+            <img src="images/girl1.jpg" alt="slider1" class="user-image" />
+            <p>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            </p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque debitis praesentium culpa dicta, quia assumenda consectetur quibusdam cupiditate libero. Minus ullam quam blanditiis explicabo. Corrupti sit fuga rem neque.</p>
+  
+          </div>
+          <div class="col-md-4 text-center">
+              <img src="images/girl1.jpg" alt="slider1" class="user-image" />
+              <p>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              </p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque debitis praesentium culpa dicta, quia assumenda consectetur quibusdam cupiditate libero. Minus ullam quam blanditiis explicabo. Corrupti sit fuga rem neque.</p>
+    
+            </div>
+            <div class="col-md-4 text-center">
+                <img src="images/girl1.jpg" alt="slider1" class="user-image" />
+                <p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                </p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque debitis praesentium culpa dicta, quia assumenda consectetur quibusdam cupiditate libero. Minus ullam quam blanditiis explicabo. Corrupti sit fuga rem neque.</p>
+      
+              </div>
+        </div>
+        <div class="item">
+            <div class="col-md-4 text-center">
+              <img src="images/girl1.jpg" alt="slider1" class="user-image" />
+              <p>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              </p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque debitis praesentium culpa dicta, quia assumenda consectetur quibusdam cupiditate libero. Minus ullam quam blanditiis explicabo. Corrupti sit fuga rem neque.</p>
+    
+            </div>
+            <div class="col-md-4 text-center">
+                <img src="images/girl1.jpg" alt="slider1" class="user-image" />
+                <p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                </p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque debitis praesentium culpa dicta, quia assumenda consectetur quibusdam cupiditate libero. Minus ullam quam blanditiis explicabo. Corrupti sit fuga rem neque.</p>
+      
+              </div>
+              <div class="col-md-4 text-center">
+                  <img src="images/girl1.jpg" alt="slider1" class="user-image" />
+                  <p>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  </p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque debitis praesentium culpa dicta, quia assumenda consectetur quibusdam cupiditate libero. Minus ullam quam blanditiis explicabo. Corrupti sit fuga rem neque.</p>
+        
+                </div>
+          </div>
+            
+      
+    </div>
+
+    
+  </div>
+
+
+<!-- Testimonial end here -->
+
+ <!-- Banner 2 start here -->
+ <br> <br>
+ <div  class="container-fluid m-z">
+    <div class="row m-z">
+      <div class="col-sm-12 m-z">
+          <img src="images/banner-3.jpg" class="img-responsive" />
+      </div>
+  </div>
+  </div>
+
+  <!-- Banner end here -->
+  <br>
+  <div class="container-fluid">
+      <h4 class="section-title"><span>The vyora blog</span></h4>
+
+  </div>
+  <br><br>
+  <div class="container">
+  <div class="col-md-3 text-center">
+      <img src="images/girl1.jpg" alt="slider1" class="blog-image" />
+      
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque debitis praesentium culpa dicta, quia assumenda consectetur quibusdam cupiditate libero. Minus ullam quam blanditiis explicabo. Corrupti sit fuga rem neque.</p>
+       <a href="" class="read-more">Read more...</a>
+    </div>
+    <div class="col-md-3 text-center">
+        <img src="images/girl1.jpg" alt="slider1" class="blog-image" />
+        
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque debitis praesentium culpa dicta, quia assumenda consectetur quibusdam cupiditate libero. Minus ullam quam blanditiis explicabo. Corrupti sit fuga rem neque.</p>
+        <a href="" class="read-more pull-left">Read more...</a>
+      </div>
+      <div class="col-md-3 text-center">
+          <img src="images/girl1.jpg" alt="slider1" class="blog-image" />
+          
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque debitis praesentium culpa dicta, quia assumenda consectetur quibusdam cupiditate libero. Minus ullam quam blanditiis explicabo. Corrupti sit fuga rem neque.</p>
+          <a href="" class="read-more">Read more...</a>
+        </div>
+        <div class="col-md-3 text-center">
+            <img src="images/girl1.jpg" alt="slider1" class="blog-image" />
+            
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque debitis praesentium culpa dicta, quia assumenda consectetur quibusdam cupiditate libero. Minus ullam quam blanditiis explicabo. Corrupti sit fuga rem neque.</p>
+            <a href="" class="read-more">Read more...</a>
+          </div>
+    </div>
+
+<br><br><br>
+
+
+
+<footer class="container-fluid text-center">
+  <a href="#myPage" title="To Top" class="pull-right">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a>
+</footer>
+
+<script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links in navbar + footer link
+  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 900, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+  
+  $(window).scroll(function() {
+    $(".slideanim").each(function(){
+      var pos = $(this).offset().top;
+
+      var winTop = $(window).scrollTop();
+        if (pos < winTop + 600) {
+          $(this).addClass("slide");
+        }
+    });
+  });
+})
+
+$(function(){
+    var dtToday = new Date();
+    
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+    
+    var minDate= year + '-' + month + '-' + day;
+    
+    $('#dateOfJourney').attr('min', minDate);
+});
+</script>
+
+</body>
 </html>

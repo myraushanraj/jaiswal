@@ -80,7 +80,6 @@
                             $sql = "SELECT 
                                 book_detail.route_id, 
                                 book_detail.journey_date, 
-                                book_detail.customer_id,
                                 customer.customer_id, 
                                 customer.username, 
                                 payment.customer_id,
@@ -95,7 +94,7 @@
                                 `payment`,
                                 `time_table` 
                                 WHERE 
-                                book_detail.customer_id = payment.customer_id = customer.customer_id  AND book_detail.route_id = time_table.route_id";
+                                 book_detail.route_id = time_table.route_id";
                             $run = mysqli_query($con,$sql);
 
                             if(!$run)

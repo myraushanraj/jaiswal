@@ -81,7 +81,7 @@ return $interval->format('%hh %im');
 $journeyFrom = $_SESSION['journeyFrom'];
 $journeyTo = $_SESSION['journeyTo']; 
 $dateOfJourney = $_SESSION['dateOfJourney'];
-
+$_SESSION['selected_route_id'];
 if (!isset($_SESSION['selected_route_id']))
 {
     $selected_route_id = "";
@@ -99,7 +99,7 @@ if(!$run)
 $rows = mysqli_num_rows($run);
 if($rows>0){
     while($data = mysqli_fetch_assoc($run)){
-
+        $_SESSION['rent']=$data['rent'];
         $departure_station = $data['departure_station'];
         $arrival_station = $data['arrival_station'];
 
