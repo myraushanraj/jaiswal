@@ -30,11 +30,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a  href="#myPage" class="navbar-brand">Jaiswal holidays</a>
+      <a  href="index.php" class="navbar-brand">Jaiswal holidays</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#about">HOME</a></li>
+        <li><a href="index.php">HOME</a></li>
         
         <li><a href="#portfolio">OUR STORY</a></li>
         <li><a href="#pricing">BLOG</a></li>
@@ -147,12 +147,7 @@ if($rows>0){
                 if($no_rows>0){
                     while($row = mysqli_fetch_assoc($result2)) {
                         $count = $row['COUNT'];
-                        if ($count < "32") {
-                            $availableNo = 32 - $count;
-                            echo "<td>".$availableNo." Seat</td>";
-                        } else {
-                            echo "<td> Not Available </td>";
-                        }
+                      
                     }
                 }else{
                     echo "<td> 32 </td>";

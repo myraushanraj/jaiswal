@@ -45,11 +45,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a  href="#myPage" class="navbar-brand">Jaiswal holidays</a>
+      <a  href="index.php" class="navbar-brand">Jaiswal holidays</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#about">HOME</a></li>
+        <li><a href="index.php">HOME</a></li>
         
         <li><a href="#portfolio">OUR STORY</a></li>
         <li><a href="#pricing">BLOG</a></li>
@@ -145,7 +145,7 @@
     </div>
   <div class="col-md-4 text-left">
      <p class="fff"> Welcome to Jaiswal holidays. Book bus tickets online, check bus schedules and get the best bus booking deals right here, right now. Your memorable bus journey is just a click away.
-     <h3 class="fff">Save up to 30% on online Bus Ticket!</h3>
+     <h3 class="fff">Save up to R.S 50 on online Bus</p><p> Ticket Use code JAISWAL</h3>
     </div>
  </div> 
 
@@ -153,15 +153,16 @@
 <!-- Slider end here -->
 
 <!-- Container (Services Section) -->
+<br>
 <div id="" class="container-fluid text-center">
      
-        <h4 class="section-title"><span>Online Booking Offer</span></h4>
+        <h4 class=""><span>Online Booking Offer</span></h4>
         <br>
         <div class="row">
           <div class="col-sm-4">
             <div class="box-wrap">
                 <span class=""> <img src="https://s1.rdbuz.com/images/MobileOffers/amazon/offertile..png" class="img-responsive"/></span>
-                <p class="product-title">Use code CONTROL to get Up to 12% cashback (Max Rs 175) into redbus wallet on bus tickets depending on your route of travel and bus operator.</p>
+                <p class="product-title">Use code JAISWAL to get Up to R.S 50 Instant Discount .</p>
               
                 
             </div>
@@ -169,16 +170,14 @@
           <div class="col-sm-4">
               <div class="box-wrap">
                   <span class=""> <img src="https://s1.rdbuz.com/images/MobileOffers/amazon/offertile..png" class="img-responsive"/></span>
-                  <p class="product-title">Use code CONTROL to get Up to 12% cashback (Max Rs 175) into redbus wallet on bus tickets depending on your route of travel and bus operator.</p>
-                
+                  <p class="product-title">Use code JAISWAL to get Up to R.S 50 Instant Discount .</p>                
                   
               </div>
           </div>
           <div class="col-sm-4">
               <div class="box-wrap">
                   <span class=""> <img src="https://s1.rdbuz.com/images/MobileOffers/amazon/offertile..png" class="img-responsive"/></span>
-                  <p class="product-title">Use code CONTROL to get Up to 12% cashback (Max Rs 175) into redbus wallet on bus tickets depending on your route of travel and bus operator.</p>
-                
+                  <p class="product-title">Use code JAISWAL to get Up to R.S 50 Instant Discount .</p>                
                   
               </div>
           </div>

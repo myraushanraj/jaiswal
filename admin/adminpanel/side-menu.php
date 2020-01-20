@@ -30,6 +30,11 @@
                 Bus-type
             </a>
         </li>
+        <li>
+            <a href="promocode.php">
+               Promocode
+            </a>
+        </li>
         <!-- <li>
             <a href="setting.php">
                 Settings

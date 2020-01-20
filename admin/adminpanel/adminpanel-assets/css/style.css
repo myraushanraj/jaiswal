@@ -418,3 +418,9 @@ a:hover,
     margin-right: auto;
     margin-left: auto;
 }
+
+.nav>li {
+    position: relative;
+    display: block;
+    border-bottom: 1px solid gray;
+}

@@ -3,7 +3,7 @@
 	$servername="localhost";
 	$username="root";
 	$password="";
-	$database="bus";
+	$database="bus2";
 	$db=mysqli_connect($servername,$username,$password,$database);
 
 	if(!$db){

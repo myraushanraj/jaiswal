@@ -32,7 +32,8 @@
             array_push($errors, "totalSeat is required"); 
         }
         if(!$error){
-            $query = "INSERT INTO `bus_detail`(bus_no, bus_type, total_seat, total_seat) VALUES('". $busNo. "', '". $busType. "', '". $totalSeat. "', '". $bus_name. "' )";
+            $query = "INSERT INTO `bus_detail`(bus_no, bus_type, total_seat, bus_name) VALUES('". $busNo. "', '". $busType. "', '". $totalSeat. "', '". $bus_name. "' )";
+            
             if(mysqli_query($con, $query)) {
                 $successmsg = "Successfully Registered!";
             }

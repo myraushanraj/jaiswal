@@ -406,3 +406,22 @@ text-align: center;
 list-style: none;
 }
 }
+
+
+@media only screen and (max-width:800px){
+  .bus-list-wrap td,.bus-list-wrap th{
+    padding:20px 3px!important;
+  }
+  .container{
+    padding:2px!important;
+  }
+  #content {
+   padding: 0px!important;
+}
+.col-xs-12{
+  padding:3px!important;
+}
+table td {
+  padding: 1px 2px;
+}
+}
